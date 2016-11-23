@@ -30,19 +30,7 @@ namespace ArrayProblem4
                         array.Add((array[i - 1])*A % P);
                     }
                 }
-
-                //for (int i = 0; i < N; i++)
-                //{
-                //    array.Add(NextLong());
-                //}
-                //Result.Append("(");
                 Result.Append(Ksmallest(array,0,N-1,K)+"\n");
-                
-                //foreach (var item in array)
-                //{
-                //    Result.Append(item + " ");
-                //}
-                //Result.Append("\n");
             }
             Console.Write(Result);
         }
@@ -68,7 +56,6 @@ namespace ArrayProblem4
         }
         static int Partition(List<long> array, int left, int right)
         {
-            //Random ran = new Random();
             long pivot = array[right];
             int i = left;
             for (int j = left; j < right; j++)

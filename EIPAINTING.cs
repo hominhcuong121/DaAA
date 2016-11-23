@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemSoLanXuatHien
+namespace funpic
 {
-    class Program
+    public class Program
     {
         public static void Main(string[] args)
         {
@@ -24,14 +24,18 @@ namespace DemSoLanXuatHien
             
             Console.Write(n-k);
             Console.ReadKey();
-        }
+        
+      }
+        #region Input wrapper  //giup viec quan ly khoi 
 
-        #region Input wrapper
+
 
         static int s_index = 0;
         static string[] s_tokens;
 
-        private static string Next()
+
+
+        private static string Next() //kieu ky tu
         {
             while (s_tokens == null || s_index == s_tokens.Length)
             {
@@ -41,16 +45,26 @@ namespace DemSoLanXuatHien
             return s_tokens[s_index++];
         }
 
-        private static int NextInt()
+        private static int[] readIntArray()
         {
-            return Int32.Parse(Next());
+            return Console.ReadLine().Split(' ').Where(i => !string.IsNullOrEmpty(i)).Select(i => int.Parse(i)).ToArray();
         }
 
-        private static long NextLong()
+
+        private static int NextInt() //kieu so nguyen
         {
-            return Int64.Parse(Next());
+            return Int32.Parse(Next());  //bien ky tu vao ra so nguyen
         }
 
-        #endregion
+
+
+        private static long NextLong() //kieu so lon
+        {
+            return Int64.Parse(Next()); //giong tren 
+        }
+
+
+
+        #endregion //ket khuc
     }
 }

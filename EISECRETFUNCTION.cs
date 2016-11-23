@@ -10,25 +10,22 @@ namespace SecretFunction
     {
         static void Main(string[] args)
         {
-            int a = NextInt();
-            int n = NextInt();
-            int b = NextInt();
-            Console.Write((a % b == 0) ? 0 : SecretFunction(a, n, b));
+            long a = NextLong();
+            long b = NextLong();
+            long c = NextLong();
+            long final=1;
 
-        }
-        static long SecretFunction(long a, int n, int b)
-        {
-            if (n == 1)
+            for (int i = 0; i< b; i++ )
             {
-                return a % b;
+                final= (final* a) % c;    
             }
-            return (SecretFunction(a, n - 1, b) * a) % b;
+            Console.WriteLine(final);
+            Console.ReadLine();
         }
-        #region Input wrapper
 
+        #region Input wrapper
         static int s_index = 0;
         static string[] s_tokens;
-
         private static string Next()
         {
             while (s_tokens == null || s_index == s_tokens.Length)
@@ -38,17 +35,14 @@ namespace SecretFunction
             }
             return s_tokens[s_index++];
         }
-
         private static int NextInt()
         {
             return Int32.Parse(Next());
         }
-
         private static long NextLong()
         {
             return Int64.Parse(Next());
         }
-
         #endregion
     }
 }

@@ -1,107 +1,48 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace KimTuThapBatOn
+namespace EIPYRAMID
 {
     class Program
     {
         static void Main(string[] args)
         {
-            StringBuilder Result = new StringBuilder();            
-            int testcase = NextInt();
-            for (int times = 0; times < testcase; times++)
+            var T = NextInt();
+            for (var t = 0; t < T; t++)
             {
-                int ID = NextInt();
-                //int Count = 0;                
-                List<int> Input = new List<int>();
-                //nhap
-                for (int i = 0; i < 12; i++)
+                var id = NextInt();
+                var heights = new List<int>();
+                for (var i = 0; i < 12; i++)
                 {
-                    Input.Add(NextInt());
+                    heights.Add(NextInt());
                 }
-                //while(Input.Count>0)
-                //{
-                //    int Head = -1;
-                //    int Tail = -1;
-                //    //cat ra tung mang 
-                //    for (int i = 0; i < Input.Count; i++)
-                //    {
-                //        if (Input[i] == 0 && Head == -1)
-                //        {
-                //            Input.Remove(0);
-                //            i--;
-                //        }
-                //        else if (Input[i] != 0 && Head == -1)
-                //        {
-                //            Head = i;
-                //        }
-                //        else if (Input[i] == 0 && Tail == -1)
-                //        {
-                //            Tail = i;
-                //            break;
-                //        }
-                //    }
-                //    //tru mang con cho min                    
-                //    if (Input.Count > 0)
-                //    {                        
-                //        subtraction(Head, Tail, MinList(Head, Tail, Input), Input);
-                //        Count++; 
-                //    }
-                //}
-                //Result.Append(times + 1 + " " + Count + "\n");  
-                Result.Append(times + 1 + " " + Pyramid(Input)+"\n");
-            }
-            Console.Write(Result);
-            Console.ReadLine();
 
-        }
-        static int Pyramid(List<int> acc)
-        {
-            int Head = 0, Tail = 0;
-            while (acc[0] == 0)
-            {
-                acc.Remove(0);
-                if (acc.Count==0)
+                var total = 0;
+                var max = heights.Max();
+                while (max > 0)
                 {
-                    return 0;
+                    var newHeights = new List<int>();
+                    for (int i = 0; i < heights.Count; i++)
+                    {
+                        if (heights[i] < max)
+                        {
+                            newHeights.Add(heights[i]);
+                        }
+                        else if (i == 0 || heights[i - 1] < max)
+                        {
+                            total++;
+                        }
+                    }
+                    heights = newHeights;
+                    max = heights.Max();
                 }
-            }
-            Head = 0;
-            for (int i = 0; i < acc.Count; i++)
-            {
-                if (acc[i] == 0)
-                {
-                    Tail = i;
-                    break;
-                }
-            }
-            subtraction(Head, Tail, MinList(Head, Tail, acc), acc);
-            return 1 + Pyramid(acc);
-        } 
-        static int MinList(int Head, int Tail, List<int> ListInt)
-        {
-            int min = ListInt[Head];
-            for (int i = Head+1; i < Tail; i++)
-            {
-                if (min>ListInt[i])
-                {
-                    min = ListInt[i];
-                }
-            }
-            return min;
-        }
-        static void subtraction(int Head, int Tail, int min, List<int> ListInt)
-        {
-            for (int i = Head; i < Tail; i++)
-            {
-                ListInt[i] -= min;
-            }
-        }
-        #region Input wrapper
 
+                Console.WriteLine(id + " " + total);
+            }
+        }
+
+        #region INPUT WRAPPER
         static int s_index = 0;
         static string[] s_tokens;
 
@@ -109,10 +50,30 @@ namespace KimTuThapBatOn
         {
             while (s_tokens == null || s_index == s_tokens.Length)
             {
-                s_tokens = Console.ReadLine().Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                s_tokens = Console.ReadLine().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 s_index = 0;
             }
             return s_tokens[s_index++];
+        }
+
+        private static bool HasNext()
+        {
+            while (s_tokens == null || s_index == s_tokens.Length)
+            {
+                s_tokens = null;
+                s_index = 0;
+                var nextLine = Console.ReadLine();
+                if (nextLine != null)
+                {
+                    s_tokens = nextLine.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            return s_tokens != null && s_tokens.Length > 0;
         }
 
         private static int NextInt()
